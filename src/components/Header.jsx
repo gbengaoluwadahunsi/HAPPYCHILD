@@ -18,7 +18,7 @@ const Header = () => (
         />
         <h1 className="text-3xl font-bold ml-4">HAPPYCHILD</h1>
       </div>
-      <nav className="space-x-4 pr-8">
+      <nav className="space-x-4  pr-8">
         {/* Navigation Links */}
         <Link to="/" className="hover:text-gray-200 text-xl ">Home</Link>
         <Link to="/features" className="hover:text-gray-200 text-xl">Features</Link>
