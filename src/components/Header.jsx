@@ -24,6 +24,7 @@ const Header = () => (
         <Link to="/features" className="hover:text-gray-200 text-xl">Features</Link>
         <Link to="/about" className="hover:text-gray-200 text-xl">About</Link>
         <Link to="/contact" className="hover:text-gray-200 text-xl">Contact</Link>
+        <Link to="/login" className="hover:text-gray-200 text-xl bg-red-500 py-2 px-4 rounded-full cursor-pointer">Login</Link>
       </nav>
     </div>
   </header>

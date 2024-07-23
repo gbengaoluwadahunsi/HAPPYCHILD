@@ -20,7 +20,9 @@ const App= () => (
           <Route path="/features" element={<div>Features Page</div>} />
           <Route path="/about" element={<div>About Page</div>} />
           <Route path="/contact" element={<div>Contact Page</div>} />
+          <Route path="/login" element={<div>Login page</div>} />
           <Route path="*" element={<div>404 Page Not Found</div>} /> 
+
         </Routes>
       </main>
       <footer className="w-full py-4 bg-blue-600 text-gray-400 text-center">

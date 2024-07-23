@@ -9,10 +9,10 @@ const Hero = () => (
       Monitor and analyze the emotions of students and children.
     </p>
     <div className="flex  space-x-4">
-      <button className="px-6 py-2 text-2xl bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition">
+      <button className="px-6 py-2 text-2xl bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition">
         Get Started
       </button>
-      <button className="px-6 py-2 text-2xl bg-gray-200 text-blue-600 font-bold rounded hover:bg-gray-300 transition">
+      <button className="px-6 py-2 text-2xl bg-gray-200 text-blue-600  rounded-full font-bold  hover:bg-gray-300 transition">
         Learn More
       </button>
     </div>

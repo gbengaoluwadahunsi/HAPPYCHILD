@@ -1,115 +1,46 @@
-// src/components/VideoFeed.jsx
-import  { useEffect, useRef, useState } from 'react';
-import * as tf from '@tensorflow/tfjs';
-import * as blazeface from '@tensorflow-models/blazeface';
-import { pipeline } from '@xenova/transformers';
+import { useRef, useState } from 'react';
+import { processVideo } from '../endpoints/api'; // Adjust the path based on where you place api.js
+
+import { FaStopCircle , FaPlayCircle , } from "react-icons/fa";
 
 const VideoFeed = () => {
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [emotions, setEmotions] = useState([]);
   const [videoSource, setVideoSource] = useState('camera');
-  const [emotionClassifier, setEmotionClassifier] = useState(null);
-
-  useEffect(() => {
-    const loadModel = async () => {
-      const classifier = await pipeline('text-classification', 'path/to/your/model');
-      setEmotionClassifier(classifier);
-    };
-
-    loadModel();
-
-    if (videoSource === 'camera') {
-      setupCamera();
-    }
-  }, [videoSource]);
+  const [emotions, setEmotions] = useState([]);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const setupCamera = async () => {
-    if (videoRef.current) {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoRef.current.srcObject = stream;
-      videoRef.current.play();
-      detectFaces();
-    }
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    videoRef.current.srcObject = stream;
+    videoRef.current.play();
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files?.[0];
-    if (file && videoRef.current) {
-      const url = URL.createObjectURL(file);
-      videoRef.current.src = url;
-      videoRef.current.play();
-      detectFaces();
+    if (file) {
+      try {
+        const emotions = await processVideo(file);
+        setEmotions(emotions);
+      } catch (error) {
+        console.error('Error processing video:', error);
+      }
     }
   };
 
-  const detectFaces = async () => {
-    const model = await blazeface.load();
-    setInterval(async () => {
-      const returnTensors = false;
-      const predictions = await model.estimateFaces(videoRef.current, returnTensors);
+  const handleVideoFeed  =  () => {
+    // Handle video feed logic here
+    // For example, you can use videoRef.current to access the video element
+    setIsPlaying(() => !isPlaying);
 
-      if (predictions.length > 0) {
-        const context = canvasRef.current?.getContext('2d');
-        context?.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-        predictions.forEach(async (prediction) => {
-          const start = prediction.topLeft;
-          const end = prediction.bottomRight;
-          const size = [end[0] - start[0], end[1] - start[1]];
-
-          if (context) {
-            context.beginPath();
-            context.rect(start[0], start[1], size[0], size[1]);
-            context.lineWidth = 2;
-            context.strokeStyle = 'blue';
-            context.stroke();
-
-            const faceCanvas = document.createElement('canvas');
-            faceCanvas.width = size[0];
-            faceCanvas.height = size[1];
-            const faceContext = faceCanvas.getContext('2d');
-            faceContext.drawImage(
-              videoRef.current,
-              start[0],
-              start[1],
-              size[0],
-              size[1],
-              0,
-              0,
-              size[0],
-              size[1]
-            );
-
-            if (emotionClassifier) {
-              const imageData = faceContext.getImageData(0, 0, size[0], size[1]);
-              const emotion = await emotionClassifier(imageData);
-              context.fillStyle = 'red';
-              context.fillText(emotion[0].label, start[0], start[1] - 10);
-
-              const newEmotionData = {
-                name: 'Student Name',
-                date: new Date().toISOString(),
-                emotion: emotion[0].label,
-              };
-              setEmotions((prevEmotions) => [...prevEmotions, newEmotionData]);
-            }
-          }
-        });
-      }
-    }, 100);
-  };
-
-  const handleSaveData = () => {
-    // Implement logic to save emotions data to CSV
-  };
+  }
 
   return (
     <div className="flex flex-col items-center mt-12 space-y-4">
-      <div className="flex justify-center space-x-4 mb-4">
+      <div className="flex justify-center gap-2 md:gap-4 mb-4  bg-gray-200 p-4">
         <button
-          onClick={() => setVideoSource('camera')}
-          className={`px-4 py-2 font-bold rounded ${videoSource === 'camera' ? 'bg-blue-700 text-white' : 'bg-gray-200 text-black'}`}
+          onClick={() => { setVideoSource('camera'); setupCamera(); }}
+          className={`px-4 py-2 font-bold rounded-full text-sm md:text-base ${videoSource === 'camera' ? 'bg-blue-700 text-white' : 'bg-gray-200 text-black'}`}
         >
           Use Camera
         </button>
@@ -122,26 +53,23 @@ const VideoFeed = () => {
         />
         <label
           htmlFor="upload-video"
-          className={`px-4 py-2 font-bold rounded ${videoSource === 'upload' ? 'bg-blue-700 text-white' : 'bg-gray-200 text-black'}`}
+          className={`px-4 py-2 font-bold rounded-full text-center justify-center text-sm md:text-base bg-red-500 ${videoSource === 'upload' ? 'bg-blue-700 text-white' : 'bg-gray-200 text-black'}`}
         >
           Upload Video
         </label>
+        <div className='flex gap-4 align-center justify-center items-center bg-gray-700 px-4 py-2 text-xl md:text-base rounded-full  text-white ' onClick = {handleVideoFeed}>{isPlaying ? (<button className='flex justify-center gap-1 items-center '><span>Stop analysing</span><FaStopCircle/ ></button>): (<button className='flex align-center items-center gap-1'><span>Start Analyzing</span><FaPlayCircle /></button>)}</div>
       </div>
-      <div className="relative">
+      <div className="relative items-center  mx-2 bg-black">
         <video ref={videoRef} className="hidden" />
-        <canvas
-          ref={canvasRef}
-          width="640"
-          height="480"
-          className="border-2 border-blue-600 w-full max-w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
-        />
+        <canvas width="800" height="480" className="border-2 border-blue-600   max-w-full   w-full" />
       </div>
-      <button
-        onClick={handleSaveData}
-        className="px-4 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition"
-      >
-        Save Emotion Data
-      </button>
+      <div>
+        {emotions.map((emotion, index) => (
+          <div key={index} className="text-center mt-4">
+            {emotion.name}: {emotion.emotion}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
