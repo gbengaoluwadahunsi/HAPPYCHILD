@@ -1,11 +1,21 @@
 // src/components/Header.tsx
-
+import { useState } from 'react';
 import { Link } from 'react-router-dom'; // For navigation links
 import logo from '../assets/images/Screenshot-2024-07-21-140451.svg'
+import { FaBars, FaTimes } from 'react-icons/fa'; 
 
-const Header = () => (
-  <header className="w-full bg-blue-600 text-white">
-    <div className="  flex items-center  justify-between py-4 px-2 xl:px-1 ">
+
+  
+  
+
+
+
+const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  return (
+    <header className="w-full items-center  bg-blue-600 text-white">
+    <div className="  flex items-center  justify-between py-4 px-4 xl:px-1 ">
       <div className="flex items-center">
         {/* Logo */}
         <img
@@ -18,7 +28,17 @@ const Header = () => (
         />
         <h1 className="text-3xl font-bold ml-4">HAPPYCHILD</h1>
       </div>
-      <nav className="space-x-4  pr-8">
+      <div className="lg:hidden">
+          {/* Hamburger Menu Icon for Mobile */}
+          <button
+            className="text-2xl"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+      </div> 
+      <nav className={` flex flex-col absolute lg:relative gap-8 lg:gap-4 top-20  left-0 lg:top-0 p-32  lg:p-0 lg:flex-row items-center justify-center  bg-black lg:bg-transparent   ${menuOpen ? 'block' : 'hidden'}`}>
         {/* Navigation Links */}
         <Link to="/" className="hover:text-gray-200 text-xl ">Home</Link>
         <Link to="/features" className="hover:text-gray-200 text-xl">Features</Link>
@@ -28,6 +48,7 @@ const Header = () => (
       </nav>
     </div>
   </header>
-);
+  )
+}
 
-export default Header;
+export default Header

@@ -78,19 +78,20 @@ const VideoFeed = () => {
   };
 
   return (
-    <section className="flex bg-blue-100 gap-8 px-12  py-4 items-center justify-around mt-12 ">
-      <div className="flex flex-col  basis-4/5">
+    <section className=" flex flex-col-reverse lg:flex-row  bg-blue-100  lg:gap-4 px-4 lg:px-12  py-4 items-center  justify-center  lg:justify-between mt-12 ">
+      <div className="flex flex-col basis-3/4 ">
         
 
-        <div className="relative items-center  mx-2 bg-black border-4 border-blue-600   max-w-full  h-[34em]">
+        <div className=" items-center my-12 mx-2">
           {videoSource === "default" && (
             <video
               src="../../public/videos/happychild.mp4"
               autoPlay
               controls
-              width="100%"
-              height="100%"
+              // width="100%"
+              // height="100%"
               ref={videoRef}
+              className=" h-full border-4 border-blue-600 "
             />
           )}
           {videoSource === "upload" && (
@@ -114,7 +115,7 @@ const VideoFeed = () => {
               ref={videoRef}
             />
           )}
-          <div className=" absolute flex gap-4 align-center justify-center items-center  px-4 text-sm md:text-base rounded-full text-gray-700">
+          <div className=" absolute flex gap-4 align-center justify-center items-center py-2 px-4 text-sm md:text-base rounded-full text-gray-700">
             <div
               className="flex gap-4 align-center justify-center items-center bg-gray-700 p-2 text-sm md:text-base rounded-full text-white"
               onClick={handlePlayPause}
@@ -130,19 +131,19 @@ const VideoFeed = () => {
               )}
             </div>
             <button
-              className="flex align-center p-2  bg-gray-700  text-black items-center gap-1"
+              className="flex align-center p-2  bg-gray-700  text-white items-center gap-1"
               onClick={handleRewind}
             >
               <FaFastBackward />
             </button>
             <button
-              className="flex align-center p-2 items-center bg-gray-700  text-black gap-1"
+              className="flex align-center p-2 items-center bg-gray-700  text-white gap-1"
               onClick={handleFastForward}
             >
               <FaFastForward />
             </button>
             <button
-              className="flex align-center p-2 items-center bg-gray-700  text-black gap-1"
+              className="flex align-center p-2 items-center bg-gray-700  text-white gap-1"
               onClick={handleStop}
             >
               <FaStopCircle />
@@ -157,9 +158,9 @@ const VideoFeed = () => {
           ))}
         </div>
       </div>
-      <div className=" w-1/2">
-        <h2 className="text-5xl font-extrabold leading-relaxed ">A HappyChild, for a better future, in a better world...</h2>
-        <div className="flex gap-2 md:gap-4 mb-4  self-center  p-4">
+      <div className="lg:w-3/4 items-center justify-center">
+        <h2 className="lg:text-3xl font-extrabold lg:leading-relaxed ">A HappyChild, for a better future, in a better world...</h2>
+        <div className="flex gap-2 md:gap-2 mb-4 flex-wrap self-center  py-4">
           <button
             onClick={() => {
               setVideoSource("camera");
