@@ -26,7 +26,7 @@ const Header = () => {
         />
         <h1 className=" text-2xl lg:text-3xl font-bold ">HAPPYCHILD</h1>
       </div>
-      <div className="lg:hidden">
+      <div className="lg:hidden pr-2">
           {/* Hamburger Menu Icon for Mobile */}
           <button
             className="text-2xl"
