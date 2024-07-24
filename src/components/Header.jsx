@@ -1,8 +1,8 @@
 // src/components/Header.tsx
 import { useState } from 'react';
 import { Link } from 'react-router-dom'; // For navigation links
-import logo from '../assets/images/Screenshot-2024-07-21-140451.svg'
 import { FaBars, FaTimes } from 'react-icons/fa'; 
+import { BsEmojiSmile } from "react-icons/bs";
 
 
   
@@ -14,17 +14,15 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   return (
-    <header className="w-full items-center jusstify-between bg-blue-600 text-white py-4 px-4 ">
+    <header className="w-full items-center justify-between bg-blue-600 text-white py-4 px-2 lg:px-8 ">
     <div className="  flex items-center  justify-between  ">
-      <div className="flex justify-between gap-2 items-center">
+      <div className="flex gap-4 items-center">
         {/* Logo */}
-        <img
-          src={logo}
-          width={100}
-          height={100}
+        < BsEmojiSmile
+          size= {200}
           loading="lazy"
           alt="Happy child Logo"
-          className="h-12"
+          className="h-12 w-12 cursor-pointer  font-extrabold text-black"
         />
         <h1 className=" text-2xl lg:text-3xl font-bold ">HAPPYCHILD</h1>
       </div>
@@ -38,7 +36,7 @@ const Header = () => {
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
       </div> 
-      <nav className={` flex flex-col absolute lg:relative gap-8 lg:gap-2 top-20 lg:space-x-4 left-0 lg:top-0 p-32  lg:p-0 lg:flex-row items-center justify-center  bg-black lg:bg-transparent lg:block  ${menuOpen ? 'block' : 'hidden'}`}>
+      <nav className={` flex flex-col absolute lg:relative gap-8 lg:gap-2 top-20 lg:space-x-4 left-0 lg:top-0 p-28 md:p-32  lg:p-0 lg:flex-row items-center justify-center  bg-black lg:bg-transparent lg:block  ${menuOpen ? 'block' : 'hidden'}`}>
         {/* Navigation Links */}
         <Link to="/" className="hover:text-gray-200 text-xl ">Home</Link>
         <Link to="/features" className="hover:text-gray-200 text-xl">Features</Link>

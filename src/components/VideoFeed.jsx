@@ -79,7 +79,7 @@ const VideoFeed = () => {
   };
 
   return (
-    <section className=" flex flex-col-reverse lg:flex-row  bg-blue-100  lg:gap-4 px-2 lg:px-12  py-12 lg:py-4 items-center  justify-center  lg:justify-between lg:mt-12 ">
+    <section className=" flex flex-col-reverse lg:flex-row  bg-blue-100  lg:gap-4 px-2 lg:px-8  py-12 lg:py-4 items-center  justify-center  lg:justify-between lg:mt-12 ">
       <div className="flex flex-col basis-3/4 ">
         
 
@@ -116,7 +116,7 @@ const VideoFeed = () => {
               ref={videoRef}
             />
           )}
-          <div className=" absolute  left-1/2 right-1/2 lg:relative lg:left-0 lg:right-0 flex gap-4 align-center justify-center items-center py-2 px-4 text-sm md:text-base rounded-full text-gray-700">
+          <div className=" absolute  left-1/2 right-1/2 lg:relative lg:left-0 lg:right-0 flex gap-4 align-center justify-center items-center py-2  text-sm md:text-base rounded-full text-gray-700">
             <div
               className="flex gap-4 align-center justify-center items-center bg-gray-700 p-2 text-sm md:text-base rounded-full text-white"
               onClick={handlePlayPause}
