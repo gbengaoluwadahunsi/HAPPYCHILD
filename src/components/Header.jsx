@@ -14,9 +14,9 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   return (
-    <header className="w-full items-center  bg-blue-600 text-white">
-    <div className="  flex items-center  justify-between py-4 px-4 xl:px-1 ">
-      <div className="flex items-center">
+    <header className="w-full items-center jusstify-between bg-blue-600 text-white py-4 px-4 ">
+    <div className="  flex items-center  justify-between  ">
+      <div className="flex justify-between gap-2 items-center">
         {/* Logo */}
         <img
           src={logo}
@@ -26,7 +26,7 @@ const Header = () => {
           alt="Happy child Logo"
           className="h-12"
         />
-        <h1 className="text-3xl font-bold ml-4">HAPPYCHILD</h1>
+        <h1 className=" text-2xl lg:text-3xl font-bold ">HAPPYCHILD</h1>
       </div>
       <div className="lg:hidden">
           {/* Hamburger Menu Icon for Mobile */}
@@ -38,7 +38,7 @@ const Header = () => {
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
       </div> 
-      <nav className={` flex flex-col absolute lg:relative gap-8 lg:gap-4 top-20  left-0 lg:top-0 p-32  lg:p-0 lg:flex-row items-center justify-center  bg-black lg:bg-transparent   ${menuOpen ? 'block' : 'hidden'}`}>
+      <nav className={` flex flex-col absolute lg:relative gap-8 lg:gap-2 top-20 lg:space-x-4 left-0 lg:top-0 p-32  lg:p-0 lg:flex-row items-center justify-center  bg-black lg:bg-transparent lg:block  ${menuOpen ? 'block' : 'hidden'}`}>
         {/* Navigation Links */}
         <Link to="/" className="hover:text-gray-200 text-xl ">Home</Link>
         <Link to="/features" className="hover:text-gray-200 text-xl">Features</Link>

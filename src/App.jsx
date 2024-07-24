@@ -26,7 +26,8 @@ const App= () => (
         </Routes>
       </main>
       <footer className="w-full py-4 bg-blue-600 text-gray-400 text-center">
-        © 2024 <span className='text-lg text-white font-bold'>HAPPYCHILD</span> All Rights Reserved
+         <h5 className='text-lg text-white font-bold'>HAPPYCHILD</h5> 
+        <h6>© 2024 All Rights Reserved</h6>
       </footer>
     </div>
   </Router>

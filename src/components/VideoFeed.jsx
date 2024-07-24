@@ -7,6 +7,7 @@ import {
   FaPauseCircle,
 } from "react-icons/fa";
 import { processVideo } from "../endpoints/api"; // Adjust the path based on where you place api.js
+import video from "../assets/videos/happychild.mp4"
 
 const VideoFeed = () => {
   const videoRef = useRef(null);
@@ -78,14 +79,14 @@ const VideoFeed = () => {
   };
 
   return (
-    <section className=" flex flex-col-reverse lg:flex-row  bg-blue-100  lg:gap-4 px-4 lg:px-12  py-4 items-center  justify-center  lg:justify-between mt-12 ">
+    <section className=" flex flex-col-reverse lg:flex-row  bg-blue-100  lg:gap-4 px-2 lg:px-12  py-12 lg:py-4 items-center  justify-center  lg:justify-between lg:mt-12 ">
       <div className="flex flex-col basis-3/4 ">
         
 
-        <div className=" items-center my-12 mx-2">
+        <div className=" items-center lg:my-12 mx-2">
           {videoSource === "default" && (
             <video
-              src="../../public/videos/happychild.mp4"
+              src={video}
               autoPlay
               controls
               // width="100%"
@@ -115,7 +116,7 @@ const VideoFeed = () => {
               ref={videoRef}
             />
           )}
-          <div className=" absolute flex gap-4 align-center justify-center items-center py-2 px-4 text-sm md:text-base rounded-full text-gray-700">
+          <div className=" absolute  left-1/2 right-1/2 lg:relative lg:left-0 lg:right-0 flex gap-4 align-center justify-center items-center py-2 px-4 text-sm md:text-base rounded-full text-gray-700">
             <div
               className="flex gap-4 align-center justify-center items-center bg-gray-700 p-2 text-sm md:text-base rounded-full text-white"
               onClick={handlePlayPause}
@@ -159,8 +160,8 @@ const VideoFeed = () => {
         </div>
       </div>
       <div className="lg:w-3/4 items-center justify-center">
-        <h2 className="lg:text-3xl font-extrabold lg:leading-relaxed ">A HappyChild, for a better future, in a better world...</h2>
-        <div className="flex gap-2 md:gap-2 mb-4 flex-wrap self-center  py-4">
+        <h2 className=" hidden lg:block lg:text-3xl font-extrabold lg:leading-relaxed ">A HappyChild, for a better future, in a better world...</h2>
+        <div className="flex gap-2 md:gap-2 mb-4  justify-center py-4">
           <button
             onClick={() => {
               setVideoSource("camera");
